@@ -1,35 +1,29 @@
 .center{
-    font-family: 'Reggae One', cursive;
-    font-size: 1.3em;
     position: absolute;
-    z-index: 10;
-    width: 600px;
-    height: 220px;
-    background: #eee0;
+    width: 300px;
+    height: 200px;
+    z-index: 15;
     top: 50%;
-    left: 38%;
-    margin: -110px 0 0 -100px;
-    padding: 20px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    z-index: 100;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    
 }
 
-.name{
+#name{
     color: #00fa00;
     font-family: 'Reggae One', cursive;
     font-size: 35px;
     text-align: center;
 }
 
-.welcome{
+#welcome{
     color: #00fa00;
     font-family: 'Reggae One', cursive;
     font-size: 20px;
     text-align: center;
 }
 
-h1{
+#foot{
     color: #00fa00;
     font-family: 'Reggae One', cursive;
     font-size: 30px;
