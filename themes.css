@@ -1,0 +1,69 @@
+/* i4Homes — 7 esquemas de cores trocáveis em runtime (data-theme no <html>).
+   Tokens em triplo-RGB para suportar modificadores de alpha do Tailwind. */
+:root, [data-theme="dark"]{
+  --bg:15 15 15; --bg2:8 8 10; --panel:21 21 26; --line:38 38 45;
+  --muted:172 175 178; --accent:66 150 230; --fg:255 255 255; --on-accent:255 255 255;
+  --metal-grad:linear-gradient(135deg,#eceef0,#9a9da1 30%,#fff 50%,#83868b 72%,#cdced1);
+  --metal-color:transparent;
+}
+[data-theme="blue"]{
+  --bg:255 255 255; --bg2:238 245 253; --panel:255 255 255; --line:219 230 242;
+  --muted:91 107 124; --accent:31 122 224; --fg:12 22 34; --on-accent:255 255 255;
+  --metal-grad:none; --metal-color:rgb(31 122 224);
+}
+[data-theme="mono"]{
+  --bg:255 255 255; --bg2:245 245 245; --panel:255 255 255; --line:230 230 230;
+  --muted:107 107 107; --accent:66 150 230; --fg:10 10 10; --on-accent:255 255 255;
+  --metal-grad:none; --metal-color:rgb(10 10 10);
+}
+[data-theme="proptech"]{
+  --bg:255 255 255; --bg2:242 247 244; --panel:255 255 255; --line:226 234 230;
+  --muted:95 113 132; --accent:14 159 110; --fg:11 31 58; --on-accent:255 255 255;
+  --metal-grad:none; --metal-color:rgb(11 31 58);
+}
+[data-theme="warm"]{
+  --bg:247 242 234; --bg2:239 231 218; --panel:255 253 249; --line:227 215 197;
+  --muted:111 100 82; --accent:182 136 63; --fg:33 28 21; --on-accent:255 253 249;
+  --metal-grad:none; --metal-color:rgb(182 136 63);
+}
+[data-theme="gray"]{
+  --bg:238 240 242; --bg2:228 231 235; --panel:255 255 255; --line:213 217 222;
+  --muted:96 104 112; --accent:66 150 230; --fg:23 26 30; --on-accent:255 255 255;
+  --metal-grad:none; --metal-color:rgb(23 26 30);
+}
+[data-theme="sky"]{
+  --bg:227 238 251; --bg2:213 229 248; --panel:255 255 255; --line:193 213 237;
+  --muted:84 102 122; --accent:31 122 224; --fg:11 28 48; --on-accent:255 255 255;
+  --metal-grad:none; --metal-color:rgb(31 122 224);
+}
+
+/* Component classes (token-driven) */
+.metal{-webkit-background-clip:text;background-clip:text;background-image:var(--metal-grad);color:var(--metal-color)}
+.glass{background:rgb(var(--panel) / .72);backdrop-filter:blur(10px)}
+.h-card{background:rgb(var(--panel));border:1px solid rgb(var(--line))}
+.h-card:hover{border-color:rgb(var(--accent) / .6)}
+.h-img{background:rgb(var(--bg2))}
+.h-muted{color:rgb(var(--muted))}
+.h-accent{color:rgb(var(--accent))}
+.h-badge{background:rgb(var(--accent));color:rgb(var(--on-accent))}
+.h-track{background:rgb(var(--line))}
+.h-fill{background:rgb(var(--accent))}
+.lang{color:rgb(var(--muted))}
+.lang.is-active{background:rgb(var(--accent));color:rgb(var(--on-accent))}
+.hero-word{font-family:'Dancing Script',cursive}
+.accent-bg{background:rgb(var(--accent))}
+.accent-tx{color:rgb(var(--accent))}
+
+/* Floating palette switcher (cor fixa, sempre legível) */
+.theme-fab{position:fixed;right:18px;bottom:18px;z-index:200;display:flex;align-items:center;gap:8px;background:#15151a;color:#fff;border:1px solid #3a3a3a;border-radius:999px;padding:11px 17px;font:600 14px Poppins,system-ui,sans-serif;cursor:pointer;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.theme-fab:hover{border-color:#4296E6}
+.theme-panel{position:fixed;right:18px;bottom:74px;z-index:200;background:#15151a;border:1px solid #3a3a3a;border-radius:16px;padding:8px;width:240px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none;font-family:Poppins,system-ui,sans-serif}
+.theme-panel.open{display:block}
+.theme-panel h4{color:#fff;font-size:12px;font-weight:600;padding:8px 10px 6px;margin:0;letter-spacing:.02em}
+.theme-opt{display:flex;align-items:center;gap:11px;width:100%;background:transparent;border:0;color:#cfcfcf;padding:9px 10px;border-radius:10px;cursor:pointer;text-align:left}
+.theme-opt:hover{background:#232323}
+.theme-opt.active{background:#1d2a3c;color:#fff}
+.theme-opt .nm{font:500 13px Poppins,sans-serif;line-height:1.15}
+.theme-opt .tg{font-size:10px;opacity:.5}
+.theme-sw{display:flex;border-radius:6px;overflow:hidden;border:1px solid #3a3a3a;flex:0 0 auto}
+.theme-sw i{width:15px;height:24px;display:block}

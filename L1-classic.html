@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>i4Homes · Layout 1 — Classic</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{ink:'rgb(var(--bg) / <alpha-value>)',ink2:'rgb(var(--bg2) / <alpha-value>)',panel:'rgb(var(--panel) / <alpha-value>)',line:'rgb(var(--line) / <alpha-value>)',silver:'rgb(var(--muted) / <alpha-value>)',blue:'rgb(var(--accent) / <alpha-value>)',fg:'rgb(var(--fg) / <alpha-value>)'},fontFamily:{sans:['Poppins','sans-serif'],script:['"Dancing Script"','cursive']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="themes.css">
+<style>
+ body{font-family:Poppins,sans-serif}
+ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+ /* hero carousel */
+ .hc-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+ .hc-slide.active{opacity:1}
+ .hc-ov{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,8,10,.05),rgba(8,8,10,.85));pointer-events:none}
+ .hc-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:40px;height:40px;display:grid;place-items:center;border-radius:999px;background:rgba(8,8,10,.45);color:#fff;border:1px solid rgba(255,255,255,.25);cursor:pointer;font-size:22px;line-height:1;backdrop-filter:blur(4px);transition:background .2s}
+ .hc-arrow:hover{background:rgb(var(--accent))}
+ .hc-prev{left:12px}.hc-next{right:12px}
+ .hc-dots{position:absolute;top:14px;right:14px;z-index:3;display:flex;gap:7px}
+ .hc-dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.45);cursor:pointer;transition:all .2s}
+ .hc-dot.active{background:#fff;width:22px}
+</style></head>
+<body class="bg-ink text-fg antialiased">
+<header class="sticky top-0 z-50 glass border-b border-line"><div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+ <div class="flex items-center gap-1.5"><span class="metal font-extrabold text-2xl">i4</span><span class="font-semibold text-xl">Homes</span></div>
+ <nav class="hidden md:flex items-center gap-7 text-sm text-silver"><a class="text-fg" data-i18n="nav_invest">To Invest</a><a class="hover:text-fg" data-i18n="nav_live">To Live</a><a class="hover:text-fg" data-i18n="nav_rent">To Rent</a><a class="hover:text-fg" data-i18n="nav_about">About</a></nav>
+ <div class="flex items-center gap-3"><div class="flex rounded-full border border-line overflow-hidden text-xs"><button onclick="setLang('en')" data-lang="en" class="lang px-2.5 py-1">EN</button><button onclick="setLang('es')" data-lang="es" class="lang px-2.5 py-1">ES</button><button onclick="setLang('pt')" data-lang="pt" class="lang px-2.5 py-1">PT</button></div>
+ <a class="text-sm font-semibold bg-blue hover:bg-blue/90 text-white px-4 py-2 rounded-full" data-i18n="cta_invest">Start investing</a></div>
+</div></header>
+
+<!-- 1 HERO -->
+<section class="max-w-7xl mx-auto px-5 pt-16 pb-12 grid lg:grid-cols-2 gap-10 items-center">
+ <div>
+  <p class="accent-tx text-sm font-medium mb-4" data-i18n="hero_eyebrow">Fractional real estate investing</p>
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.05]"><span data-i18n="hero_title">Own a share of income-generating homes</span> <span class="hero-word metal block text-4xl md:text-5xl mt-2" data-i18n="hero_word">in Florida</span></h1>
+  <p class="text-silver text-lg mt-5 max-w-xl" data-i18n="hero_sub">…</p>
+  <div class="flex flex-wrap gap-3 mt-7"><a href="#props" class="bg-blue hover:bg-blue/90 text-white px-6 py-3 rounded-full font-semibold" data-i18n="hero_primary">Explore investments</a><a href="#props" class="border border-line hover:border-silver px-6 py-3 rounded-full font-semibold text-silver hover:text-fg" data-i18n="hero_secondary">Buy or rent a home</a></div>
+ </div>
+ <div id="heroCar" class="relative rounded-2xl border border-line overflow-hidden aspect-[4/3] h-img cursor-pointer">
+  <div id="heroImgs" class="absolute inset-0"></div>
+  <div class="hc-ov"></div>
+  <div class="absolute top-3 left-3 z-10"><span class="h-badge text-xs font-semibold px-2.5 py-1 rounded-full" data-i18n="invest_badge">Invest</span></div>
+  <button class="hc-arrow hc-prev" aria-label="Previous">‹</button>
+  <button class="hc-arrow hc-next" aria-label="Next">›</button>
+  <div class="hc-dots"></div>
+  <div class="absolute bottom-0 p-5 w-full text-white z-10">
+   <h3 class="font-bold text-lg" id="heroTitle">i4 1800 — Palm Bay, FL</h3>
+   <div class="flex gap-5 mt-1 text-sm"><span><span class="text-white/70" data-i18n="card_irr">Target IRR</span> <b style="color:#7db8f2" id="heroIRR">16.2%</b></span><span><span class="text-white/70" data-i18n="card_yield">Cash yield</span> <b id="heroYield">7.4%</b></span></div>
+   <div class="h-1.5 bg-white/20 rounded mt-3 overflow-hidden"><div class="h-fill h-full rounded" id="heroBar" style="width:72%;transition:width .6s ease"></div></div>
+   <div class="text-xs text-white/80 mt-1"><span id="heroFunded">72</span>% <span data-i18n="card_funded">funded</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- 2 CREDIBILITY -->
+<section class="border-y border-line bg-ink2"><div class="max-w-7xl mx-auto px-5 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-center">
+ <div><span class="text-xl font-bold metal">30+</span> <span class="text-silver text-sm" data-i18n="stat_years">years</span></div>
+ <div><span class="text-xl font-bold metal">500+</span> <span class="text-silver text-sm" data-i18n="stat_built">homes built</span></div>
+ <div class="inline-flex items-center gap-1.5 border border-blue/50 accent-tx rounded-full px-3 py-1 text-sm font-medium"><span data-i18n="trust_regulated">Regulated · Reg A+</span></div>
+</div></section>
+
+<!-- pillars -->
+<section class="max-w-7xl mx-auto px-5 pt-12"><div class="grid md:grid-cols-3 gap-4">
+ <div class="bg-panel border border-blue/40 rounded-2xl p-5"><h3 class="font-semibold" data-i18n="pinvest_t">To Invest</h3><p class="text-silver text-sm mt-1" data-i18n="pinvest_d">…</p></div>
+ <div class="bg-panel border border-line rounded-2xl p-5"><h3 class="font-semibold" data-i18n="plive_t">To Live</h3><p class="text-silver text-sm mt-1" data-i18n="plive_d">…</p></div>
+ <div class="bg-panel border border-line rounded-2xl p-5"><h3 class="font-semibold" data-i18n="prent_t">To Rent</h3><p class="text-silver text-sm mt-1" data-i18n="prent_d">…</p></div>
+</div></section>
+
+<!-- 3 OFFERINGS -->
+<section id="props" class="max-w-7xl mx-auto px-5 py-12">
+ <div class="mb-6"><h2 class="text-2xl font-bold" data-i18n="props_title">Investment opportunities</h2><p class="text-silver text-sm mt-1" data-i18n="props_sub">…</p></div>
+ <div id="grid" class="grid md:grid-cols-3 gap-5"></div>
+ <h3 class="text-lg font-semibold mt-12 mb-4" data-i18n="also_title">Also available…</h3>
+ <div id="also" class="grid sm:grid-cols-2 gap-5"></div>
+</section>
+
+<!-- 4 HOW IT WORKS -->
+<section class="bg-ink2 border-y border-line"><div class="max-w-7xl mx-auto px-5 py-14">
+ <h2 class="text-2xl font-bold mb-8" data-i18n="how_title">How investing works</h2>
+ <div class="grid md:grid-cols-3 gap-6">
+  <div><div class="accent-tx text-3xl font-bold">01</div><h3 class="font-semibold mt-2" data-i18n="how1_t">Browse</h3><p class="text-silver text-sm mt-1" data-i18n="how1_d">…</p></div>
+  <div><div class="accent-tx text-3xl font-bold">02</div><h3 class="font-semibold mt-2" data-i18n="how2_t">Invest</h3><p class="text-silver text-sm mt-1" data-i18n="how2_d">…</p></div>
+  <div><div class="accent-tx text-3xl font-bold">03</div><h3 class="font-semibold mt-2" data-i18n="how3_t">Track</h3><p class="text-silver text-sm mt-1" data-i18n="how3_d">…</p></div>
+ </div></div></section>
+
+<!-- 5 WE BUILD -->
+<section class="max-w-7xl mx-auto px-5 py-14"><div class="bg-panel border border-line rounded-2xl p-8 md:p-10 grid md:grid-cols-2 gap-8 items-center">
+ <div>
+  <p class="accent-tx text-sm font-semibold" data-i18n="build_eyebrow">Why i4Homes</p>
+  <h2 class="text-3xl font-bold mt-2" data-i18n="build_title">We build the homes you invest in</h2>
+  <p class="text-silver mt-3" data-i18n="build_desc">…</p>
+  <div class="flex flex-wrap gap-2 mt-5 text-sm"><span class="border border-line rounded-full px-3 py-1" data-i18n="build_p1">Built, not bought</span><span class="border border-line rounded-full px-3 py-1" data-i18n="build_p2">New construction</span><span class="border border-line rounded-full px-3 py-1" data-i18n="build_p3">30+ years</span></div>
+ </div>
+ <div class="h-img rounded-xl overflow-hidden aspect-[4/3]"><img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=70" class="w-full h-full object-cover" alt=""></div>
+</div></section>
+
+<!-- 6 CALCULATOR -->
+<section class="max-w-7xl mx-auto px-5 pb-14"><div class="grid md:grid-cols-2 gap-6 items-center bg-panel border border-line rounded-2xl p-8">
+ <div>
+  <h2 class="text-2xl font-bold" data-i18n="calc_title">Estimate your returns</h2>
+  <p class="text-silver mt-2" data-i18n="calc_desc">…</p>
+  <label class="block text-sm text-silver mt-5" data-i18n="calc_amount">Investment amount</label>
+  <div class="flex items-center mt-1 bg-ink border border-line rounded-xl px-3"><span class="text-silver">$</span><input id="calcAmount" type="number" value="5000" class="bg-transparent flex-1 px-2 py-3 outline-none text-fg"></div>
+  <a href="#" class="inline-block mt-4 accent-tx font-semibold text-sm" data-i18n="calc_cta">Open full calculator →</a>
+ </div>
+ <div class="grid grid-cols-2 gap-3">
+  <div class="bg-ink border border-line rounded-xl p-5"><div class="text-xs text-silver" data-i18n="calc_income">Est. annual income</div><div class="text-2xl font-bold accent-tx mt-1" id="calcIncome">$370</div></div>
+  <div class="bg-ink border border-line rounded-xl p-5"><div class="text-xs text-silver" data-i18n="calc_value">Est. value in 5 years</div><div class="text-2xl font-bold metal mt-1" id="calcValue">$10,500</div></div>
+  <div class="col-span-2 text-xs text-silver" data-i18n="calc_note">Illustrative…</div>
+ </div>
+</div></section>
+
+<!-- 7 CITIES -->
+<section class="max-w-7xl mx-auto px-5 pb-14">
+ <h2 class="text-2xl font-bold" data-i18n="cities_title">Invest across Florida</h2>
+ <p class="text-silver text-sm mt-1" data-i18n="cities_sub">…</p>
+ <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-6">
+  <a class="group relative rounded-xl overflow-hidden aspect-[4/5]"><img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=400&q=60" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt=""><div class="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent"></div><div class="absolute bottom-0 p-3 text-white"><div class="font-semibold text-sm">Palm Bay</div><div class="text-xs text-white/70">Florida</div></div></a>
+  <a class="group relative rounded-xl overflow-hidden aspect-[4/5]"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=400&q=60" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt=""><div class="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent"></div><div class="absolute bottom-0 p-3 text-white"><div class="font-semibold text-sm">Ocala</div><div class="text-xs text-white/70">Florida</div></div></a>
+  <a class="group relative rounded-xl overflow-hidden aspect-[4/5]"><img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=400&q=60" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt=""><div class="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent"></div><div class="absolute bottom-0 p-3 text-white"><div class="font-semibold text-sm">North Port</div><div class="text-xs text-white/70">Florida</div></div></a>
+  <a class="group relative rounded-xl overflow-hidden aspect-[4/5]"><img src="https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=400&q=60" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt=""><div class="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent"></div><div class="absolute bottom-0 p-3 text-white"><div class="font-semibold text-sm">Lehigh Acres</div><div class="text-xs text-white/70">Florida</div></div></a>
+  <a class="group relative rounded-xl overflow-hidden aspect-[4/5]"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=60" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt=""><div class="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent"></div><div class="absolute bottom-0 p-3 text-white"><div class="font-semibold text-sm">Cape Coral</div><div class="text-xs text-white/70">Florida</div></div></a>
+ </div>
+</section>
+
+<!-- 8 TEST THE WATERS -->
+<section class="border-y border-line bg-ink2"><div class="max-w-3xl mx-auto px-5 py-14 text-center">
+ <p class="accent-tx text-sm font-semibold" data-i18n="ttw_eyebrow">Test the Waters</p>
+ <h2 class="text-2xl md:text-3xl font-bold mt-2" data-i18n="ttw_title">Reserve your spot — no payment yet</h2>
+ <p class="text-silver mt-3" data-i18n="ttw_desc">…</p>
+ <div class="flex flex-col sm:flex-row gap-2 mt-6 max-w-md mx-auto">
+  <input type="email" data-i18n-ph="ttw_ph" placeholder="your@email.com" class="flex-1 bg-ink border border-line rounded-xl px-4 py-3 outline-none text-fg">
+  <button class="bg-blue hover:bg-blue/90 text-white px-6 py-3 rounded-xl font-semibold whitespace-nowrap" data-i18n="ttw_cta">Notify me</button>
+ </div>
+ <p class="text-silver text-xs mt-3" data-i18n="ttw_note">…</p>
+</div></section>
+
+<!-- 9 FOOTER + DISCLOSURE -->
+<footer class="border-t border-line"><div class="max-w-7xl mx-auto px-5 py-10">
+ <div class="flex justify-between gap-4 flex-wrap items-start">
+  <div><div class="flex items-center gap-1.5"><span class="metal font-extrabold text-xl">i4</span><span class="font-semibold">Homes</span></div><p class="text-silver text-sm mt-2" data-i18n="foot_tag">Building homes…</p></div>
+  <div class="flex rounded-full border border-line overflow-hidden text-xs h-fit"><button onclick="setLang('en')" data-lang="en" class="lang px-2.5 py-1">EN</button><button onclick="setLang('es')" data-lang="es" class="lang px-2.5 py-1">ES</button><button onclick="setLang('pt')" data-lang="pt" class="lang px-2.5 py-1">PT</button></div>
+ </div>
+ <p class="text-silver text-xs mt-6 max-w-3xl leading-relaxed opacity-80" data-i18n="disclosure">Investments are offered under Reg A+…</p>
+ <div class="text-xs text-silver mt-4" data-i18n="foot_rights">© 2026 i4Homes.</div>
+</div></footer>
+<script src="homes.js"></script><script src="themes.js"></script>
+<script>
+/* Carrossel hero = showcase de imóveis: foto + nome + cidade + TIR + yield + captação trocam juntos (mesmo padrão do L5-bento). */
+(function(){
+  const car=document.getElementById('heroCar'); if(!car||typeof INVEST==='undefined')return;
+  const ITEMS=INVEST.slice(0,5);
+  const wrap=document.getElementById('heroImgs');
+  const dotsWrap=car.querySelector('.hc-dots');
+  const $=id=>document.getElementById(id);
+  wrap.innerHTML=ITEMS.map((p,n)=>`<img class="hc-slide${n===0?' active':''}" src="${IMG(p.img)}" alt="">`).join('');
+  const slides=[...wrap.children];
+  let i=0, timer;
+  ITEMS.forEach((_,n)=>{const d=document.createElement('button');d.className='hc-dot'+(n===0?' active':'');d.addEventListener('click',e=>{e.stopPropagation();go(n);});dotsWrap.appendChild(d);});
+  const dots=[...dotsWrap.children];
+  function apply(p){$('heroTitle').textContent=p.n+' — '+p.c;$('heroIRR').textContent=p.irr;$('heroYield').textContent=p.y;$('heroBar').style.width=p.f+'%';$('heroFunded').textContent=p.f;}
+  function go(n){slides[i].classList.remove('active');dots[i].classList.remove('active');i=(n+ITEMS.length)%ITEMS.length;slides[i].classList.add('active');dots[i].classList.add('active');apply(ITEMS[i]);reset();}
+  function next(){go(i+1)} function prev(){go(i-1)}
+  function reset(){clearInterval(timer);timer=setInterval(next,4500);}
+  car.querySelector('.hc-next').addEventListener('click',e=>{e.stopPropagation();next();});
+  car.querySelector('.hc-prev').addEventListener('click',e=>{e.stopPropagation();prev();});
+  car.addEventListener('mouseenter',()=>clearInterval(timer));
+  car.addEventListener('mouseleave',reset);
+  apply(ITEMS[0]);reset();
+})();
+</script>
+</body></html>
